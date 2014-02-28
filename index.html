@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Go-compact : Merge external js/css/image files into HTML as a single file" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Go-compact</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ddliu/go-compact">View on GitHub</a>
+
+          <h1 id="project_title">Go-compact</h1>
+          <h2 id="project_tagline">Merge external js/css/image files into HTML as a single file</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ddliu/go-compact/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ddliu/go-compact/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="compact" class="anchor" href="#compact"><span class="octicon octicon-link"></span></a>compact</h1>
+
+<p>Merge external js/css/images into a single HTML file.</p>
+
+<h2>
+<a name="why" class="anchor" href="#why"><span class="octicon octicon-link"></span></a>Why</h2>
+
+<p>A beautifuy HTML page contains CSS, images and even javascript. 
+But it's painful to distribute. You have to compress all files, send, uncompress, and then figure out which file to open in your browser.</p>
+
+<p>It's much easier if all these go into a single HTML file.</p>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Include external CSS file</li>
+<li>Include external JS file</li>
+<li>Turn <code>&lt;img&gt;</code> into data-uri format</li>
+<li>Turn css background-image into data-uri format</li>
+<li>Custom ignore function</li>
+</ul><h2>
+<a name="command-line-usage" class="anchor" href="#command-line-usage"><span class="octicon octicon-link"></span></a>Command Line Usage</h2>
+
+<pre><code>compact http://github.com github.html
+compact /path/to/local/file.html result.html
+</code></pre>
+
+<h2>
+<a name="package-usage" class="anchor" href="#package-usage"><span class="octicon octicon-link"></span></a>Package Usage</h2>
+
+<div class="highlight highlight-go"><pre><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">"github.com/ddliu/go-compact"</span>
+    <span class="s">"net/url"</span>
+    <span class="s">"fmt"</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// u, _ := url.Parse("/home/dong/project/example.html")</span>
+    <span class="nx">u</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="s">"http://github.com"</span><span class="p">)</span>
+    <span class="nx">content</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">compact</span><span class="p">.</span><span class="nx">Convert</span><span class="p">(</span><span class="nx">u</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">u</span> <span class="o">*</span><span class="nx">url</span><span class="p">.</span><span class="nx">Url</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">u</span><span class="p">.</span><span class="nx">Host</span> <span class="o">==</span> <span class="s">"google.com"</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="limit" class="anchor" href="#limit"><span class="octicon octicon-link"></span></a>Limit</h2>
+
+<ul>
+<li>Webfont not supported</li>
+<li>The convertion is done with the help of regexp, so it might not work for some HTML pages</li>
+</ul><h2>
+<a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>Changelog</h2>
+
+<h3>
+<a name="v010-2014-02-28" class="anchor" href="#v010-2014-02-28"><span class="octicon octicon-link"></span></a>v0.1.0 (2014-02-28)</h3>
+
+<p>Initial release</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Go-compact maintained by <a href="https://github.com/ddliu">ddliu</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
